@@ -1,0 +1,72 @@
+[
+  {
+    "day": 1,
+    "title": "FLEXIONES",
+    "subtitle": "Activa el pecho y los brazos",
+    "sets": "3 series x 10 reps",
+    "tip": "Codos a 45°. Pecho toca el suelo.",
+    "hook": "DÍA 1 — EMPIEZA AQUÍ",
+    "cta": "MAÑANA: SENTADILLAS",
+    "voiceover": "Día uno. Flexiones. Tres series de diez repeticiones. Mantén el cuerpo recto, codos a cuarenta y cinco grados, pecho al suelo. Esto activa tu pecho, tríceps y core. ¡Venga, tú puedes!"
+  },
+  {
+    "day": 2,
+    "title": "SENTADILLAS",
+    "subtitle": "Piernas y glúteos de acero",
+    "sets": "3 series x 15 reps",
+    "tip": "Rodillas no pasan los pies. Espalda recta.",
+    "hook": "DÍA 2 — TRABAJA LAS PIERNAS",
+    "cta": "MAÑANA: FONDOS EN SILLA",
+    "voiceover": "Día dos. Sentadillas. Tres series de quince repeticiones. Baja hasta que los muslos queden paralelos al suelo. Rodillas alineadas con los pies, espalda siempre recta. El mayor músculo del cuerpo trabaja hoy."
+  },
+  {
+    "day": 3,
+    "title": "FONDOS EN SILLA",
+    "subtitle": "Tríceps y hombros definidos",
+    "sets": "3 series x 12 reps",
+    "tip": "Baja hasta codo a 90°. No encorves.",
+    "hook": "DÍA 3 — BRAZOS Y HOMBROS",
+    "cta": "MAÑANA: PLANCHA",
+    "voiceover": "Día tres. Fondos en silla. Tres series de doce repeticiones. Usa una silla o banco. Baja hasta que los codos formen noventa grados. Sube sin encorvar la espalda. Tus tríceps se agradecerán."
+  },
+  {
+    "day": 4,
+    "title": "PLANCHA",
+    "subtitle": "Core de hierro",
+    "sets": "3 series x 45 segundos",
+    "tip": "Cuerpo en línea recta. Respira.",
+    "hook": "DÍA 4 — EL RETO DEL CORE",
+    "cta": "MAÑANA: ZANCADAS",
+    "voiceover": "Día cuatro. Plancha. Tres series de cuarenta y cinco segundos. Apoya antebrazos y puntas de los pies. Cuerpo en línea recta de cabeza a talones. Aprieta el abdomen y respira. El core más fuerte de tu vida empieza hoy."
+  },
+  {
+    "day": 5,
+    "title": "ZANCADAS",
+    "subtitle": "Equilibrio y fuerza funcional",
+    "sets": "3 series x 12 por pierna",
+    "tip": "Rodilla trasera casi toca el suelo.",
+    "hook": "DÍA 5 — EQUILIBRIO TOTAL",
+    "cta": "MAÑANA: BURPEES",
+    "voiceover": "Día cinco. Zancadas. Tres series de doce repeticiones por pierna. Da un paso adelante y baja hasta que la rodilla trasera casi toque el suelo. Alterna piernas. Activa piernas, glúteos y estabilizadores."
+  },
+  {
+    "day": 6,
+    "title": "BURPEES",
+    "subtitle": "Cardio y fuerza combinados",
+    "sets": "3 series x 8 reps",
+    "tip": "Explosivo hacia arriba. Respira constante.",
+    "hook": "DÍA 6 — EL MÁS DURO",
+    "cta": "MAÑANA: RETO FINAL",
+    "voiceover": "Día seis. Burpees. Tres series de ocho repeticiones. Desde de pie, baja al suelo, haz una flexión, salta y palmea arriba. Ejercicio completo: piernas, core, pecho y cardio. El más duro del reto. ¡Dale todo!"
+  },
+  {
+    "day": 7,
+    "title": "RETO FINAL",
+    "subtitle": "Demuestra todo lo que aprendiste",
+    "sets": "10 · 15 · 12 · 45s · 12 · 8",
+    "tip": "Un circuito. Sin descanso entre ejercicios.",
+    "hook": "DÍA 7 — HOY LO DAS TODO",
+    "cta": "COMPARTE TU RESULTADO",
+    "voiceover": "Día siete. El reto final. Un circuito completo: diez flexiones, quince sentadillas, doce fondos, cuarenta y cinco segundos de plancha, doce zancadas por pierna y ocho burpees. Sin descanso entre ejercicios. Llevas siete días entrenando. Hoy demuestras de qué estás hecho."
+  }
+]

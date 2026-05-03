@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reto Calistenia 7 Días — Sin Gym. Solo Tu Cuerpo.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange: #FF6B00;
+      --orange-dim: #FF6B0022;
+      --white: #F5F5F5;
+      --gray: #888;
+      --dark: #0a0a0a;
+      --card: #111;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--dark);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 24px 80px;
+      position: relative;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, #FF6B0018 0%, transparent 65%),
+        radial-gradient(ellipse 50% 40% at 80% 80%, #FF2200 0%, transparent 50%),
+        var(--dark);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 39px, #ffffff06 40px),
+        repeating-linear-gradient(90deg, transparent, transparent 39px, #ffffff06 40px);
+      pointer-events: none;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--orange);
+      color: black;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 2px;
+      margin-bottom: 28px;
+    }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(72px, 16vw, 140px);
+      line-height: 0.9;
+      letter-spacing: -2px;
+      margin-bottom: 12px;
+    }
+
+    .hero-title span { color: var(--orange); }
+
+    .hero-days {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(36px, 8vw, 64px);
+      color: var(--gray);
+      letter-spacing: 6px;
+      margin-bottom: 32px;
+    }
+
+    .hero-sub {
+      font-size: clamp(16px, 3vw, 20px);
+      color: #aaa;
+      max-width: 480px;
+      line-height: 1.6;
+      margin-bottom: 48px;
+    }
+
+    /* ── FORM ── */
+    .form-wrap {
+      width: 100%;
+      max-width: 480px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .form-row {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .form-row input {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 4px;
+      color: white;
+      font-size: 16px;
+      padding: 16px 20px;
+      outline: none;
+      transition: border-color 0.2s;
+      font-family: 'Inter', sans-serif;
+      width: 100%;
+    }
+
+    .form-row input:focus { border-color: var(--orange); }
+    .form-row input::placeholder { color: #555; }
+
+    .btn-cta {
+      background: var(--orange);
+      color: black;
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: 1px;
+      padding: 18px 32px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: transform 0.15s, background 0.15s;
+      font-family: 'Inter', sans-serif;
+      width: 100%;
+    }
+
+    .btn-cta:hover { transform: translateY(-2px); background: #ff8533; }
+    .btn-cta:active { transform: translateY(0); }
+
+    .form-note {
+      font-size: 12px;
+      color: #555;
+      margin-top: 12px;
+    }
+
+    .form-msg {
+      margin-top: 16px;
+      padding: 12px 16px;
+      border-radius: 4px;
+      font-size: 15px;
+      display: none;
+    }
+    .form-msg.success { background: #00FF8820; border: 1px solid #00FF88; color: #00FF88; }
+    .form-msg.error   { background: #FF222220; border: 1px solid #FF2222; color: #FF6666; }
+
+    /* ── DAYS SECTION ── */
+    .days-section {
+      padding: 100px 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 12px;
+      letter-spacing: 3px;
+      color: var(--orange);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(40px, 8vw, 72px);
+      line-height: 1;
+      margin-bottom: 60px;
+    }
+
+    .days-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .day-card {
+      background: var(--card);
+      border: 1px solid #1f1f1f;
+      border-radius: 8px;
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .day-card:hover { border-color: var(--orange); transform: translateY(-4px); }
+
+    .day-card::before {
+      content: attr(data-day);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 120px;
+      color: #ffffff05;
+      position: absolute;
+      right: -10px;
+      top: -20px;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .day-num {
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--orange);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .day-ex {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 36px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .day-sets {
+      font-size: 15px;
+      color: var(--orange);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .day-tip {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.5;
+    }
+
+    /* ── WHY SECTION ── */
+    .why-section {
+      padding: 100px 24px;
+      background: #050505;
+      text-align: center;
+    }
+
+    .why-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .pillars {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 24px;
+      margin-top: 60px;
+    }
+
+    .pillar {
+      padding: 32px 24px;
+      border: 1px solid #1f1f1f;
+      border-radius: 8px;
+    }
+
+    .pillar-icon {
+      font-size: 36px;
+      margin-bottom: 16px;
+    }
+
+    .pillar h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 24px;
+      margin-bottom: 8px;
+      color: var(--orange);
+    }
+
+    .pillar p { font-size: 14px; color: #777; line-height: 1.6; }
+
+    /* ── CTA BOTTOM ── */
+    .cta-bottom {
+      padding: 120px 24px;
+      text-align: center;
+      background:
+        radial-gradient(ellipse 70% 60% at 50% 100%, #FF6B0015 0%, transparent 70%),
+        var(--dark);
+    }
+
+    .cta-bottom .hero-title { font-size: clamp(48px, 10vw, 100px); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 32px 24px;
+      text-align: center;
+      color: #333;
+      font-size: 13px;
+      border-top: 1px solid #111;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero > * { animation: fadeUp 0.6s ease both; }
+    .hero > *:nth-child(1) { animation-delay: 0s; }
+    .hero > *:nth-child(2) { animation-delay: 0.1s; }
+    .hero > *:nth-child(3) { animation-delay: 0.2s; }
+    .hero > *:nth-child(4) { animation-delay: 0.3s; }
+    .hero > *:nth-child(5) { animation-delay: 0.4s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero > * { animation: none; }
+    }
+
+    @media (max-width: 480px) {
+      .days-grid { grid-template-columns: 1fr; }
+      .pillars    { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="badge">Gratis · Sin gym · 7 días</div>
+
+    <h1 class="hero-title">RETO<br><span>CALISTENIA</span></h1>
+    <p class="hero-days">7 DÍAS</p>
+
+    <p class="hero-sub">
+      Un ejercicio al día. Sin equipo, sin excusas, sin pagar.<br>
+      Solo tu cuerpo y 15 minutos.
+    </p>
+
+    <div class="form-wrap">
+      <form class="form-row" id="signupForm">
+        <input type="text"  id="nameInput"  name="name"  placeholder="Tu nombre (opcional)" autocomplete="given-name">
+        <input type="email" id="emailInput" name="email" placeholder="Tu email" required autocomplete="email">
+        <button type="submit" class="btn-cta">QUIERO EL RETO GRATIS →</button>
+      </form>
+      <p class="form-note">Sin spam. Solo 7 emails en 7 días. Te puedes dar de baja cuando quieras.</p>
+      <div class="form-msg" id="formMsg"></div>
+    </div>
+  </section>
+
+  <!-- DÍAS -->
+  <section class="days-section">
+    <p class="section-label">El programa</p>
+    <h2 class="section-title">7 DÍAS.<br>7 EJERCICIOS.</h2>
+
+    <div class="days-grid">
+      <div class="day-card" data-day="1">
+        <p class="day-num">Día 1</p>
+        <h3 class="day-ex">FLEXIONES</h3>
+        <p class="day-sets">3 × 10 reps</p>
+        <p class="day-tip">Codos a 45°. Pecho al suelo. Activa pecho y tríceps.</p>
+      </div>
+      <div class="day-card" data-day="2">
+        <p class="day-num">Día 2</p>
+        <h3 class="day-ex">SENTADILLAS</h3>
+        <p class="day-sets">3 × 15 reps</p>
+        <p class="day-tip">Rodillas alineadas. Baja hasta muslos paralelos.</p>
+      </div>
+      <div class="day-card" data-day="3">
+        <p class="day-num">Día 3</p>
+        <h3 class="day-ex">FONDOS EN SILLA</h3>
+        <p class="day-sets">3 × 12 reps</p>
+        <p class="day-tip">Codo a 90° al bajar. Solo necesitas una silla.</p>
+      </div>
+      <div class="day-card" data-day="4">
+        <p class="day-num">Día 4</p>
+        <h3 class="day-ex">PLANCHA</h3>
+        <p class="day-sets">3 × 45 segundos</p>
+        <p class="day-tip">Cuerpo recto. Aprieta el core. Respira despacio.</p>
+      </div>
+      <div class="day-card" data-day="5">
+        <p class="day-num">Día 5</p>
+        <h3 class="day-ex">ZANCADAS</h3>
+        <p class="day-sets">3 × 12 por pierna</p>
+        <p class="day-tip">Rodilla trasera casi al suelo. Alterna piernas.</p>
+      </div>
+      <div class="day-card" data-day="6">
+        <p class="day-num">Día 6</p>
+        <h3 class="day-ex">BURPEES</h3>
+        <p class="day-sets">3 × 8 reps</p>
+        <p class="day-tip">El más duro. Completo: piernas, core, pecho y cardio.</p>
+      </div>
+      <div class="day-card" data-day="7" style="border-color:#FF6B0055;background:linear-gradient(135deg,#1a0800,#111)">
+        <p class="day-num" style="color:#FFDD00">Día 7</p>
+        <h3 class="day-ex" style="color:#FF6B00">RETO FINAL</h3>
+        <p class="day-sets" style="color:#FFDD00">Circuito completo</p>
+        <p class="day-tip">Todo junto. Sin descanso. Demuestras de qué estás hecho.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- POR QUÉ -->
+  <section class="why-section">
+    <div class="why-inner">
+      <p class="section-label">Por qué funciona</p>
+      <h2 class="section-title">SIN EXCUSAS.<br>SIN EQUIPO.</h2>
+
+      <div class="pillars">
+        <div class="pillar">
+          <div class="pillar-icon">⚡</div>
+          <h3>15 min/día</h3>
+          <p>Progresión inteligente. Cada día un poco más difícil que el anterior.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">🏠</div>
+          <h3>En casa</h3>
+          <p>Solo necesitas tu cuerpo. Sin gym, sin pesas, sin suscripciones.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">📧</div>
+          <h3>Email diario</h3>
+          <p>Cada mañana recibes el ejercicio del día directo en tu bandeja.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">🔥</div>
+          <h3>Cuerpo completo</h3>
+          <p>Pecho, piernas, core y cardio. Los 7 pilares del fitness sin equipo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="cta-bottom">
+    <p class="section-label">Empieza hoy</p>
+    <h2 class="hero-title">7 DÍAS.<br><span>¿LO HACES?</span></h2>
+    <br><br>
+
+    <div class="form-wrap" style="margin:0 auto">
+      <form class="form-row" id="signupForm2">
+        <input type="email" name="email" placeholder="Tu email" required>
+        <button type="submit" class="btn-cta">EMPEZAR GRATIS →</button>
+      </form>
+      <p class="form-note">Sin spam. Te puedes dar de baja cuando quieras.</p>
+      <div class="form-msg" id="formMsg2"></div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Reto Calistenia 7 Días — Hecho con esfuerzo, no con excusas.</p>
+  </footer>
+
+  <script>
+    const SERVER = '';  // Vacío = mismo origin. Si usas otro puerto: 'http://localhost:3000'
+
+    async function handleSubmit(form, msgEl) {
+      const email = form.querySelector('[type="email"]').value.trim();
+      const nameEl = form.querySelector('[type="text"]');
+      const name = nameEl ? nameEl.value.trim() : '';
+
+      msgEl.style.display = 'none';
+
+      try {
+        const res = await fetch(`${SERVER}/subscribe`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, name }),
+        });
+        const data = await res.json();
+
+        if (res.ok) {
+          msgEl.className = 'form-msg success';
+          msgEl.textContent = '¡Listo! Revisa tu email. El reto empieza mañana.';
+          form.reset();
+        } else {
+          msgEl.className = 'form-msg error';
+          msgEl.textContent = data.error || 'Error al registrarse. Inténtalo de nuevo.';
+        }
+      } catch (_) {
+        msgEl.className = 'form-msg error';
+        msgEl.textContent = 'No se pudo conectar. ¿Está el servidor corriendo?';
+      }
+
+      msgEl.style.display = 'block';
+    }
+
+    document.getElementById('signupForm').addEventListener('submit', e => {
+      e.preventDefault();
+      handleSubmit(e.target, document.getElementById('formMsg'));
+    });
+
+    document.getElementById('signupForm2').addEventListener('submit', e => {
+      e.preventDefault();
+      handleSubmit(e.target, document.getElementById('formMsg2'));
+    });
+
+    // Intersection Observer para animar cards al scroll
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(el => {
+        if (el.isIntersecting) {
+          el.target.style.animation = 'fadeUp 0.5s ease both';
+          observer.unobserve(el.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.day-card, .pillar').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

@@ -1,0 +1,317 @@
+[
+  {
+    "day": 1,
+    "accent": [255, 107, 0],
+    "accent_hex": "FF6B00",
+    "next": "SENTADILLAS",
+    "slides": [
+      {
+        "type": "main",
+        "label": "DÍA 1 DE 7",
+        "title": "FLEXIONES",
+        "body": "3 series × 10 reps",
+        "detail": "Activa pecho, tríceps y core",
+        "duration": 20,
+        "voiceover": "Día uno del reto. Hoy hacemos flexiones. Tres series de diez repeticiones. Activas el pecho, los tríceps y el core. Vamos."
+      },
+      {
+        "type": "technique",
+        "label": "TÉCNICA CORRECTA",
+        "title": "FLEXIONES",
+        "points": ["Codos a 45° del cuerpo", "Pecho toca el suelo", "Cuerpo en línea recta", "Respira al bajar, suelta al subir"],
+        "duration": 20,
+        "voiceover": "Técnica correcta. Codos a cuarenta y cinco grados. El pecho debe tocar el suelo. Cuerpo en línea recta de cabeza a talones. Respira al bajar y suelta el aire al subir."
+      },
+      {
+        "type": "progression",
+        "label": "ELIGE TU NIVEL",
+        "title": "FLEXIONES",
+        "levels": [
+          { "label": "PRINCIPIANTE", "text": "Apoya rodillas en el suelo" },
+          { "label": "INTERMEDIO",   "text": "Flexión clásica completa" },
+          { "label": "AVANZADO",     "text": "Explosiva con palmada" }
+        ],
+        "duration": 20,
+        "voiceover": "Elige tu nivel. Si eres principiante, apoya las rodillas en el suelo. Si ya tienes base, haz la flexión clásica completa. Si quieres un reto mayor, hazla explosiva con palmada al subir."
+      },
+      {
+        "type": "cta",
+        "label": "DÍA 1 COMPLETADO",
+        "message": "¡Primer paso dado!",
+        "cta": "MAÑANA: SENTADILLAS",
+        "duration": 10,
+        "voiceover": "Día uno completado. Primer paso dado. Mañana: sentadillas. ¡Nos vemos!"
+      }
+    ]
+  },
+  {
+    "day": 2,
+    "accent": [0, 200, 255],
+    "accent_hex": "00C8FF",
+    "next": "FONDOS EN SILLA",
+    "slides": [
+      {
+        "type": "main",
+        "label": "DÍA 2 DE 7",
+        "title": "SENTADILLAS",
+        "body": "3 series × 15 reps",
+        "detail": "Piernas, glúteos y estabilizadores",
+        "duration": 20,
+        "voiceover": "Día dos. Sentadillas. El ejercicio reina del tren inferior. Tres series de quince repeticiones. Trabajan piernas, glúteos y estabilizadores."
+      },
+      {
+        "type": "technique",
+        "label": "TÉCNICA CORRECTA",
+        "title": "SENTADILLAS",
+        "points": ["Pies al ancho de hombros", "Rodillas alineadas con pies", "Baja hasta muslos paralelos", "Espalda recta todo el tiempo"],
+        "duration": 20,
+        "voiceover": "Técnica. Pies al ancho de los hombros. Rodillas alineadas con los pies, no hacia adentro. Baja hasta que los muslos queden paralelos al suelo. Espalda recta siempre."
+      },
+      {
+        "type": "progression",
+        "label": "ELIGE TU NIVEL",
+        "title": "SENTADILLAS",
+        "levels": [
+          { "label": "PRINCIPIANTE", "text": "Sentadilla con silla de apoyo" },
+          { "label": "INTERMEDIO",   "text": "Sentadilla clásica completa" },
+          { "label": "AVANZADO",     "text": "Sentadilla con salto" }
+        ],
+        "duration": 20,
+        "voiceover": "Niveles. Principiante: usa una silla de apoyo detrás. Intermedio: sentadilla clásica completa. Avanzado: agrega un salto al subir para trabajar explosividad."
+      },
+      {
+        "type": "cta",
+        "label": "DÍA 2 COMPLETADO",
+        "message": "¡Piernas de acero!",
+        "cta": "MAÑANA: FONDOS EN SILLA",
+        "duration": 10,
+        "voiceover": "Día dos completado. Piernas de acero. Mañana trabajamos brazos con fondos en silla."
+      }
+    ]
+  },
+  {
+    "day": 3,
+    "accent": [0, 255, 136],
+    "accent_hex": "00FF88",
+    "next": "PLANCHA",
+    "slides": [
+      {
+        "type": "main",
+        "label": "DÍA 3 DE 7",
+        "title": "FONDOS EN SILLA",
+        "body": "3 series × 12 reps",
+        "detail": "Tríceps, hombros y pecho bajo",
+        "duration": 20,
+        "voiceover": "Día tres. Fondos en silla. Solo necesitas una silla o banco. Tres series de doce repeticiones. Trabajan tríceps, hombros y pecho bajo."
+      },
+      {
+        "type": "technique",
+        "label": "TÉCNICA CORRECTA",
+        "title": "FONDOS EN SILLA",
+        "points": ["Manos en el borde de la silla", "Codo baja a 90 grados", "Espalda cerca de la silla", "No encorves los hombros"],
+        "duration": 20,
+        "voiceover": "Técnica. Manos en el borde de la silla, dedos hacia adelante. Baja hasta que el codo forme noventa grados. Mantén la espalda cerca de la silla. No dejes que los hombros suban."
+      },
+      {
+        "type": "progression",
+        "label": "ELIGE TU NIVEL",
+        "title": "FONDOS",
+        "levels": [
+          { "label": "PRINCIPIANTE", "text": "Pies doblados cerca" },
+          { "label": "INTERMEDIO",   "text": "Pies extendidos al frente" },
+          { "label": "AVANZADO",     "text": "Pies elevados en segunda silla" }
+        ],
+        "duration": 20,
+        "voiceover": "Niveles. Principiante: pies doblados, más cerca de la silla. Intermedio: piernas extendidas al frente. Avanzado: eleva los pies en una segunda silla para más intensidad."
+      },
+      {
+        "type": "cta",
+        "label": "DÍA 3 COMPLETADO",
+        "message": "¡Brazos al límite!",
+        "cta": "MAÑANA: PLANCHA",
+        "duration": 10,
+        "voiceover": "Día tres completado. Brazos al límite. Mañana el reto del core: la plancha."
+      }
+    ]
+  },
+  {
+    "day": 4,
+    "accent": [255, 34, 85],
+    "accent_hex": "FF2255",
+    "next": "ZANCADAS",
+    "slides": [
+      {
+        "type": "main",
+        "label": "DÍA 4 DE 7",
+        "title": "PLANCHA",
+        "body": "3 series × 45 segundos",
+        "detail": "Core, estabilidad y fuerza total",
+        "duration": 20,
+        "voiceover": "Día cuatro. Plancha. El ejercicio más subestimado del mundo. Tres series de cuarenta y cinco segundos. Activa el core, mejora la estabilidad y fortalece todo el cuerpo."
+      },
+      {
+        "type": "technique",
+        "label": "TÉCNICA CORRECTA",
+        "title": "PLANCHA",
+        "points": ["Antebrazos en el suelo", "Cuerpo en línea recta", "Aprieta el abdomen fuerte", "Cabeza en posición neutra"],
+        "duration": 20,
+        "voiceover": "Técnica. Apoya los antebrazos en el suelo. El cuerpo debe estar en línea recta de cabeza a talones. Aprieta el abdomen como si fuera a recibir un golpe. Cabeza en posición neutra, sin bajar ni subir."
+      },
+      {
+        "type": "progression",
+        "label": "ELIGE TU NIVEL",
+        "title": "PLANCHA",
+        "levels": [
+          { "label": "PRINCIPIANTE", "text": "Plancha con rodillas" },
+          { "label": "INTERMEDIO",   "text": "Plancha clásica 45 segundos" },
+          { "label": "AVANZADO",     "text": "Plancha con elevación de pierna" }
+        ],
+        "duration": 20,
+        "voiceover": "Niveles. Principiante: plancha con rodillas apoyadas. Intermedio: plancha clásica cuarenta y cinco segundos. Avanzado: eleva una pierna alternando cada diez segundos."
+      },
+      {
+        "type": "cta",
+        "label": "DÍA 4 COMPLETADO",
+        "message": "¡Core de hierro!",
+        "cta": "MAÑANA: ZANCADAS",
+        "duration": 10,
+        "voiceover": "Día cuatro completado. Core de hierro. Mañana atacamos el equilibrio con zancadas."
+      }
+    ]
+  },
+  {
+    "day": 5,
+    "accent": [255, 221, 0],
+    "accent_hex": "FFDD00",
+    "next": "BURPEES",
+    "slides": [
+      {
+        "type": "main",
+        "label": "DÍA 5 DE 7",
+        "title": "ZANCADAS",
+        "body": "3 series × 12 por pierna",
+        "detail": "Piernas, glúteos y equilibrio",
+        "duration": 20,
+        "voiceover": "Día cinco. Zancadas. El ejercicio del equilibrio funcional. Tres series de doce repeticiones por pierna. Trabajan piernas, glúteos y estabilizadores."
+      },
+      {
+        "type": "technique",
+        "label": "TÉCNICA CORRECTA",
+        "title": "ZANCADAS",
+        "points": ["Paso largo hacia adelante", "Rodilla trasera casi al suelo", "Rodilla delantera no sobrepasa el pie", "Torso erguido siempre"],
+        "duration": 20,
+        "voiceover": "Técnica. Da un paso largo hacia adelante. La rodilla trasera debe bajar casi hasta tocar el suelo. La rodilla delantera no debe sobrepasar la punta del pie. Mantén el torso erguido."
+      },
+      {
+        "type": "progression",
+        "label": "ELIGE TU NIVEL",
+        "title": "ZANCADAS",
+        "levels": [
+          { "label": "PRINCIPIANTE", "text": "Zancada estática con apoyo" },
+          { "label": "INTERMEDIO",   "text": "Zancada alternada caminando" },
+          { "label": "AVANZADO",     "text": "Zancada con salto alterno" }
+        ],
+        "duration": 20,
+        "voiceover": "Niveles. Principiante: zancada estática apoyándote en una pared. Intermedio: zancadas alternadas caminando. Avanzado: agrega un salto al cambiar de pierna."
+      },
+      {
+        "type": "cta",
+        "label": "DÍA 5 COMPLETADO",
+        "message": "¡Equilibrio ganado!",
+        "cta": "MAÑANA: BURPEES",
+        "duration": 10,
+        "voiceover": "Día cinco completado. Equilibrio ganado. Mañana el más duro del reto: burpees."
+      }
+    ]
+  },
+  {
+    "day": 6,
+    "accent": [187, 68, 255],
+    "accent_hex": "BB44FF",
+    "next": "RETO FINAL",
+    "slides": [
+      {
+        "type": "main",
+        "label": "DÍA 6 DE 7",
+        "title": "BURPEES",
+        "body": "3 series × 8 reps",
+        "detail": "Cuerpo completo + cardio intenso",
+        "duration": 20,
+        "voiceover": "Día seis. Burpees. El ejercicio más completo que existe. Tres series de ocho repeticiones. Trabaja todo el cuerpo y el cardio al mismo tiempo. El más duro del reto."
+      },
+      {
+        "type": "technique",
+        "label": "TÉCNICA CORRECTA",
+        "title": "BURPEES",
+        "points": ["De pie → agáchate y apoya manos", "Salta pies atrás: posición flexión", "Haz una flexión completa", "Salta pies adelante y sube con palmada"],
+        "duration": 20,
+        "voiceover": "Técnica. De pie, agáchate y apoya las manos en el suelo. Salta los pies hacia atrás hasta posición de flexión. Haz una flexión completa. Salta los pies hacia adelante y sube con un salto palmeando arriba."
+      },
+      {
+        "type": "progression",
+        "label": "ELIGE TU NIVEL",
+        "title": "BURPEES",
+        "levels": [
+          { "label": "PRINCIPIANTE", "text": "Sin salto, sin flexión" },
+          { "label": "INTERMEDIO",   "text": "Con salto, sin flexión" },
+          { "label": "AVANZADO",     "text": "Completo con flexión y salto" }
+        ],
+        "duration": 20,
+        "voiceover": "Niveles. Principiante: haz el burpee sin salto y sin flexión, solo el movimiento base. Intermedio: agrega el salto final pero omite la flexión. Avanzado: versión completa con flexión y salto."
+      },
+      {
+        "type": "cta",
+        "label": "DÍA 6 COMPLETADO",
+        "message": "¡El más duro caído!",
+        "cta": "MAÑANA: RETO FINAL",
+        "duration": 10,
+        "voiceover": "Día seis completado. El más duro del reto ya cayó. Mañana el reto final. Todo junto."
+      }
+    ]
+  },
+  {
+    "day": 7,
+    "accent": [255, 221, 0],
+    "accent_hex": "FFDD00",
+    "next": "COMPARTE TU RESULTADO",
+    "slides": [
+      {
+        "type": "main",
+        "label": "DÍA 7 DE 7",
+        "title": "RETO FINAL",
+        "body": "1 circuito sin descanso",
+        "detail": "Todo lo que aprendiste en 7 días",
+        "duration": 20,
+        "voiceover": "Día siete. El reto final. Un circuito completo con todo lo aprendido en la semana. Sin descanso entre ejercicios. Hoy demuestras de qué estás hecho."
+      },
+      {
+        "type": "technique",
+        "label": "EL CIRCUITO",
+        "title": "RETO FINAL",
+        "points": ["10 Flexiones", "15 Sentadillas", "12 Fondos en silla", "45s Plancha  →  12 Zancadas  →  8 Burpees"],
+        "duration": 20,
+        "voiceover": "El circuito. Diez flexiones, quince sentadillas, doce fondos en silla, cuarenta y cinco segundos de plancha, doce zancadas por pierna y ocho burpees. Todo seguido. Sin parar."
+      },
+      {
+        "type": "progression",
+        "label": "ESTRATEGIA",
+        "title": "PARA GANAR",
+        "levels": [
+          { "label": "MENTAL",    "text": "Un ejercicio a la vez, no pienses en el siguiente" },
+          { "label": "FÍSICO",    "text": "Respira. Cada rep cuenta más que la velocidad" },
+          { "label": "FINAL",     "text": "El último burpee es solo tuyo" }
+        ],
+        "duration": 20,
+        "voiceover": "Estrategia para ganar. Mental: un ejercicio a la vez, no pienses en el siguiente. Físico: respira, la calidad vale más que la velocidad. Y el último burpee, ese es solo tuyo."
+      },
+      {
+        "type": "cta",
+        "label": "RETO COMPLETADO",
+        "message": "¡7 DÍAS. LO LOGRASTE!",
+        "cta": "COMPARTE TU RESULTADO",
+        "duration": 10,
+        "voiceover": "Reto completado. Siete días. Lo lograste. Comparte tu resultado y etiquétanos. ¡Eres increíble!"
+      }
+    ]
+  }
+]

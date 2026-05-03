@@ -1,0 +1,20 @@
+{
+  "name": "reto-calistenia-7dias",
+  "version": "1.0.0",
+  "scripts": {
+    "audio": "python scripts/generate_audio.py",
+    "videos": "node scripts/generate_videos.js",
+    "build": "python scripts/generate_audio.py && node scripts/generate_videos.js",
+    "carousel:images": "python scripts/generate_carousel_images.py",
+    "carousel:videos": "node scripts/generate_carousel_video.js",
+    "carousel": "python scripts/generate_carousel_images.py && node scripts/generate_carousel_video.js",
+    "server": "node server.js",
+    "funnel": "node scripts/email_funnel.js"
+  },
+  "dependencies": {
+    "express": "^4.18.0",
+    "nodemailer": "^6.9.0",
+    "dotenv": "^16.0.0",
+    "cors": "^2.8.5"
+  }
+}
