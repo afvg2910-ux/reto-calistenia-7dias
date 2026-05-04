@@ -12,6 +12,7 @@ const cors       = require('cors');
 const fs         = require('fs');
 const path       = require('path');
 const https      = require('https');
+const cron       = require('node-cron');
 
 const app     = express();
 const PORT    = process.env.PORT || 3000;
@@ -183,4 +184,79 @@ app.get('/subscribers', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Servidor en http://localhost:${PORT}`);
+});
+
+// ─── EMAIL FUNNEL — corre cada día a las 9am UTC ──────────────────────────────
+
+const DAY_EMAILS = {
+  1: { subject: '🔥 Día 1 — Tu reto de calistenia empieza HOY',       color: '#FF6B00', ejercicio: 'FLEXIONES',      serie: '3 series × 10 flexiones',      tip: 'Codos a 45°. Pecho al suelo. Espalda recta.', siguiente: 'Sentadillas', img: '01' },
+  2: { subject: '💪 Día 2 — Hoy trabajan las piernas',                color: '#00C8FF', ejercicio: 'SENTADILLAS',    serie: '3 series × 15 sentadillas',     tip: 'Rodillas no pasan los pies. Baja hasta muslos paralelos.', siguiente: 'Fondos en silla', img: '02' },
+  3: { subject: '🦾 Día 3 — Tríceps y hombros',                       color: '#00FF88', ejercicio: 'FONDOS EN SILLA', serie: '3 series × 12 fondos',         tip: 'Pies más lejos = más difícil. Ajusta según tu nivel.', siguiente: 'Plancha', img: '03' },
+  4: { subject: '🧱 Día 4 — El reto del core',                        color: '#FF2255', ejercicio: 'PLANCHA',         serie: '3 series × 45 segundos',       tip: 'Cuerpo recto. Aprieta el abdomen. Aguanta 5 seg más.', siguiente: 'Zancadas', img: '04' },
+  5: { subject: '⚡ Día 5 — Equilibrio y fuerza funcional',           color: '#FFDD00', ejercicio: 'ZANCADAS',        serie: '3 series × 12 por pierna',     tip: 'Rodilla trasera casi al suelo. Torso recto.', siguiente: 'Burpees', img: '05' },
+  6: { subject: '🔥 Día 6 — El ejercicio más completo que existe',    color: '#BB44FF', ejercicio: 'BURPEES',         serie: '3 series × 8 burpees',         tip: 'Calidad sobre velocidad. Cada rep completa vale más.', siguiente: 'Reto final', img: '06' },
+  7: { subject: '🏆 Día 7 — Hoy lo das TODO. Reto Final.',            color: '#FFDD00', ejercicio: 'RETO FINAL',      serie: 'Circuito completo sin descanso', tip: '¡Lo lograste! Comparte tu resultado.', siguiente: null, img: '07' },
+};
+
+function dayEmailHtml(d) {
+  const IMG = 'https://reto-calistenia.netlify.app/images';
+  const e = DAY_EMAILS[d];
+  return `<!DOCTYPE html><html><head><meta charset="utf-8"></head>
+<body style="margin:0;padding:0;background:#111;font-family:Arial,sans-serif">
+<table width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:32px 16px">
+<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%">
+  <tr><td style="background:${e.color};padding:28px 32px;text-align:center;border-radius:12px 12px 0 0">
+    <p style="margin:0;color:rgba(0,0,0,0.6);font-size:13px;font-weight:bold">RETO CALISTENIA 7 DÍAS</p>
+    <h1 style="margin:8px 0 0;color:black;font-size:30px">DÍA ${d} — ${e.ejercicio}</h1>
+  </td></tr>
+  <tr><td style="background:#222;padding:0">
+    <img src="${IMG}/dia_${e.img}_img_1.jpg" width="600" style="display:block;width:100%">
+  </td></tr>
+  <tr><td style="background:#1a1a1a;padding:28px 32px">
+    <p style="color:${e.color};font-size:26px;font-weight:bold;margin:0 0 8px;text-align:center">${e.serie}</p>
+    <p style="color:#ccc;font-size:15px;text-align:center;margin:0 0 24px">${e.tip}</p>
+    <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:16px"><tr>
+      <td style="padding:4px"><img src="${IMG}/dia_${e.img}_img_2.jpg" width="100%" style="border-radius:6px;display:block"></td>
+      <td style="padding:4px"><img src="${IMG}/dia_${e.img}_img_3.jpg" width="100%" style="border-radius:6px;display:block"></td>
+      <td style="padding:4px"><img src="${IMG}/dia_${e.img}_img_4.jpg" width="100%" style="border-radius:6px;display:block"></td>
+    </tr></table>
+    ${e.siguiente ? `<p style="color:#555;font-size:13px;text-align:center;margin:16px 0 0">Mañana: <strong style="color:#aaa">${e.siguiente}</strong></p>` : ''}
+  </td></tr>
+  <tr><td style="background:#0a0a0a;padding:16px;text-align:center;border-radius:0 0 12px 12px">
+    <p style="color:#333;font-size:12px;margin:0">© 2026 Reto Calistenia 7 Días</p>
+  </td></tr>
+</table></td></tr></table>
+</body></html>`;
+}
+
+async function runFunnel() {
+  let subs = [];
+  try { subs = JSON.parse(fs.readFileSync(SUBS, 'utf8')); } catch (_) { return; }
+  const today = new Date();
+  let sent = 0;
+
+  for (const sub of subs) {
+    if (sub.completed) continue;
+    const diffDays = Math.floor((today - new Date(sub.registeredAt)) / 86400000) + 1;
+    const day = Math.min(diffDays, 7);
+    if (sub.lastDaySent >= day) continue;
+    try {
+      await sendBrevoEmail(sub.email, DAY_EMAILS[day].subject, dayEmailHtml(day));
+      sub.lastDaySent = day;
+      if (day === 7) sub.completed = true;
+      console.log(`Funnel OK  ${sub.email} → Día ${day}`);
+      sent++;
+    } catch (err) {
+      console.error(`Funnel ERR ${sub.email}: ${err.message}`);
+    }
+  }
+
+  fs.writeFileSync(SUBS, JSON.stringify(subs, null, 2));
+  if (sent > 0) console.log(`Funnel: ${sent} emails enviados`);
+}
+
+// Corre cada día a las 9am UTC (5am hora Colombia)
+cron.schedule('0 9 * * *', () => {
+  console.log('Cron: ejecutando funnel...');
+  runFunnel();
 });
