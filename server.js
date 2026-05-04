@@ -148,12 +148,9 @@ app.post('/subscribe', async (req, res) => {
     </table>
   </td></tr>
 
-  <!-- CTA -->
-  <tr><td style="background:#1a1a1a;padding:16px 32px 32px;text-align:center">
-    <a href="https://reto-calistenia-7dias-production.up.railway.app" style="background:#FF6B00;color:white;text-decoration:none;padding:14px 36px;border-radius:8px;font-size:15px;font-weight:bold;display:inline-block">
-      VER EL RETO COMPLETO →
-    </a>
-    <p style="color:#444;font-size:12px;margin:20px 0 0">Sin spam. Solo 7 emails en 7 días.</p>
+  <!-- FOOTER NOTE -->
+  <tr><td style="background:#1a1a1a;padding:16px 32px 24px;text-align:center">
+    <p style="color:#444;font-size:12px;margin:0">Sin spam. Solo 7 emails en 7 días.</p>
   </td></tr>
 
   <!-- FOOTER -->
