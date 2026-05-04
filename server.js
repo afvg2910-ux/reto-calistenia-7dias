@@ -27,6 +27,51 @@ app.options('*', cors());
 app.use(express.json());
 app.use(express.static(__dirname));
 
+function brevoRequest(method, path, body) {
+  return new Promise((resolve, reject) => {
+    const payload = body ? JSON.stringify(body) : null;
+    const req = https.request({
+      hostname: 'api.brevo.com',
+      path,
+      method,
+      headers: {
+        'api-key': process.env.BREVO_API_KEY,
+        'Content-Type': 'application/json',
+        ...(payload ? { 'Content-Length': Buffer.byteLength(payload) } : {}),
+      },
+    }, res => {
+      let data = '';
+      res.on('data', c => data += c);
+      res.on('end', () => {
+        const parsed = data ? JSON.parse(data) : {};
+        if (res.statusCode < 300 || res.statusCode === 409) resolve({ status: res.statusCode, body: parsed });
+        else reject(new Error(`Brevo ${res.statusCode}: ${data}`));
+      });
+    });
+    req.on('error', reject);
+    if (payload) req.write(payload);
+    req.end();
+  });
+}
+
+async function brevoCreateContact(email, name) {
+  return brevoRequest('POST', '/v3/contacts', {
+    email,
+    attributes: { FIRSTNAME: name || '', REGISTERED_AT: new Date().toISOString(), LAST_DAY_SENT: 0, COMPLETED: false },
+    listIds: [],
+    updateEnabled: false,
+  });
+}
+
+async function brevoGetContacts() {
+  const r = await brevoRequest('GET', '/v3/contacts?limit=1000&sort=desc');
+  return r.body.contacts || [];
+}
+
+async function brevoUpdateContact(email, attrs) {
+  return brevoRequest('PUT', `/v3/contacts/${encodeURIComponent(email)}`, { attributes: attrs });
+}
+
 function sendBrevoEmail(to, subject, html) {
   return new Promise((resolve, reject) => {
     const body = JSON.stringify({
@@ -61,23 +106,11 @@ app.post('/subscribe', async (req, res) => {
     return res.status(400).json({ error: 'Email inválido' });
   }
 
-  // Cargar y actualizar subscribers
-  let subs = [];
-  try { subs = JSON.parse(fs.readFileSync(SUBS, 'utf8')); } catch (_) {}
-
-  if (subs.find(s => s.email === email)) {
+  // Guardar en Brevo CRM
+  const crm = await brevoCreateContact(email, name);
+  if (crm.status === 409) {
     return res.status(409).json({ error: 'Ya estás registrado' });
   }
-
-  const sub = {
-    email,
-    name: name || '',
-    registeredAt: new Date().toISOString(),
-    lastDaySent: 0,
-    completed: false,
-  };
-  subs.push(sub);
-  fs.writeFileSync(SUBS, JSON.stringify(subs, null, 2));
 
   // Enviar email de bienvenida + Día 1
   try {
@@ -161,8 +194,7 @@ app.post('/subscribe', async (req, res) => {
 </table></td></tr></table>
 </body></html>`
     );
-    sub.lastDaySent = 0;
-    fs.writeFileSync(SUBS, JSON.stringify(subs, null, 2));
+    await brevoUpdateContact(email, { LAST_DAY_SENT: 0 });
   } catch (err) {
     console.error('Email error:', err.message);
   }
@@ -170,10 +202,11 @@ app.post('/subscribe', async (req, res) => {
   res.json({ ok: true, message: 'Registro exitoso. Revisa tu email.' });
 });
 
-app.get('/subscribers', (req, res) => {
+app.get('/subscribers', async (req, res) => {
   try {
-    const subs = JSON.parse(fs.readFileSync(SUBS, 'utf8'));
-    res.json({ total: subs.length, completed: subs.filter(s => s.completed).length });
+    const contacts = await brevoGetContacts();
+    const completed = contacts.filter(c => c.attributes && c.attributes.COMPLETED).length;
+    res.json({ total: contacts.length, completed });
   } catch (_) {
     res.json({ total: 0, completed: 0 });
   }
@@ -227,28 +260,30 @@ function dayEmailHtml(d) {
 }
 
 async function runFunnel() {
-  let subs = [];
-  try { subs = JSON.parse(fs.readFileSync(SUBS, 'utf8')); } catch (_) { return; }
+  let contacts = [];
+  try { contacts = await brevoGetContacts(); } catch (err) { console.error('Funnel: error obteniendo contactos:', err.message); return; }
   const today = new Date();
   let sent = 0;
 
-  for (const sub of subs) {
-    if (sub.completed) continue;
-    const diffDays = Math.floor((today - new Date(sub.registeredAt)) / 86400000) + 1;
+  for (const c of contacts) {
+    const attrs = c.attributes || {};
+    if (attrs.COMPLETED) continue;
+    const registeredAt = attrs.REGISTERED_AT || c.createdAt;
+    if (!registeredAt) continue;
+    const diffDays = Math.floor((today - new Date(registeredAt)) / 86400000) + 1;
     const day = Math.min(diffDays, 7);
-    if (sub.lastDaySent >= day) continue;
+    const lastDaySent = parseInt(attrs.LAST_DAY_SENT || 0);
+    if (lastDaySent >= day) continue;
     try {
-      await sendBrevoEmail(sub.email, DAY_EMAILS[day].subject, dayEmailHtml(day));
-      sub.lastDaySent = day;
-      if (day === 7) sub.completed = true;
-      console.log(`Funnel OK  ${sub.email} → Día ${day}`);
+      await sendBrevoEmail(c.email, DAY_EMAILS[day].subject, dayEmailHtml(day));
+      await brevoUpdateContact(c.email, { LAST_DAY_SENT: day, COMPLETED: day === 7 });
+      console.log(`Funnel OK  ${c.email} → Día ${day}`);
       sent++;
     } catch (err) {
-      console.error(`Funnel ERR ${sub.email}: ${err.message}`);
+      console.error(`Funnel ERR ${c.email}: ${err.message}`);
     }
   }
 
-  fs.writeFileSync(SUBS, JSON.stringify(subs, null, 2));
   if (sent > 0) console.log(`Funnel: ${sent} emails enviados`);
 }
 
