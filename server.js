@@ -8,10 +8,10 @@
 
 require('dotenv').config();
 const express    = require('express');
-const nodemailer = require('nodemailer');
 const cors       = require('cors');
 const fs         = require('fs');
 const path       = require('path');
+const https      = require('https');
 
 const app     = express();
 const PORT    = process.env.PORT || 3000;
@@ -26,10 +26,33 @@ app.options('*', cors());
 app.use(express.json());
 app.use(express.static(__dirname));
 
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: { user: process.env.GMAIL_USER, pass: process.env.GMAIL_PASS },
-});
+function sendBrevoEmail(to, subject, html) {
+  return new Promise((resolve, reject) => {
+    const body = JSON.stringify({
+      sender: { name: 'Reto Calistenia', email: 'afvg2910@gmail.com' },
+      to: [{ email: to }],
+      subject,
+      htmlContent: html,
+    });
+    const req = https.request({
+      hostname: 'api.brevo.com',
+      path: '/v3/smtp/email',
+      method: 'POST',
+      headers: {
+        'api-key': process.env.BREVO_API_KEY,
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(body),
+      },
+    }, res => {
+      let data = '';
+      res.on('data', c => data += c);
+      res.on('end', () => res.statusCode < 300 ? resolve(data) : reject(new Error(`Brevo ${res.statusCode}: ${data}`)));
+    });
+    req.on('error', reject);
+    req.write(body);
+    req.end();
+  });
+}
 
 app.post('/subscribe', async (req, res) => {
   const { email, name } = req.body;
@@ -57,11 +80,7 @@ app.post('/subscribe', async (req, res) => {
 
   // Enviar email de bienvenida + Día 1
   try {
-    await transporter.sendMail({
-      from: `"Reto Calistenia" <${process.env.GMAIL_USER}>`,
-      to: email,
-      subject: '🔥 Bienvenido al Reto Calistenia 7 Días',
-      html: `
+    await sendBrevoEmail(email, '🔥 Bienvenido al Reto Calistenia 7 Días', `
         <div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;background:#0a0a0a;color:white;padding:32px;border-radius:12px">
           <h1 style="color:#FF6B00">¡Bienvenido${name ? ', ' + name : ''}!</h1>
           <p style="color:#ccc;font-size:18px">Estás dentro del <strong>Reto Calistenia 7 Días</strong>.</p>
@@ -72,8 +91,8 @@ app.post('/subscribe', async (req, res) => {
             <span style="color:#ccc">3 series × 10 repeticiones</span>
           </div>
           <p style="color:#888;font-size:14px">Revisa tu bandeja mañana. El reto comienza.</p>
-        </div>`,
-    });
+        </div>`
+    );
     sub.lastDaySent = 0;
     fs.writeFileSync(SUBS, JSON.stringify(subs, null, 2));
   } catch (err) {
