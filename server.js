@@ -17,7 +17,12 @@ const app     = express();
 const PORT    = process.env.PORT || 3000;
 const SUBS    = path.join(__dirname, 'data/subscribers.json');
 
-app.use(cors());
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type'],
+}));
+app.options('*', cors());
 app.use(express.json());
 app.use(express.static(__dirname));
 
