@@ -312,7 +312,7 @@ async function initBrevoAttributes() {
 }
 
 // Corre cada día a las 9am UTC (5am hora Colombia)
-cron.schedule('0 9 * * *', () => {
+cron.schedule('0 13 * * *', () => {
   console.log('Cron: ejecutando funnel...');
   runFunnel();
 });
