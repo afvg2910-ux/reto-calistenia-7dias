@@ -202,6 +202,15 @@ app.post('/subscribe', async (req, res) => {
   res.json({ ok: true, message: 'Registro exitoso. Revisa tu email.' });
 });
 
+app.get('/run-funnel', async (req, res) => {
+  try {
+    await runFunnel();
+    res.json({ ok: true, message: 'Funnel ejecutado. Revisa los logs.' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 app.get('/subscribers', async (req, res) => {
   try {
     const contacts = await brevoGetContacts();
@@ -287,8 +296,25 @@ async function runFunnel() {
   if (sent > 0) console.log(`Funnel: ${sent} emails enviados`);
 }
 
+// Crea atributos personalizados en Brevo si no existen
+async function initBrevoAttributes() {
+  const attrs = [
+    { name: 'REGISTERED_AT', type: 'text' },
+    { name: 'LAST_DAY_SENT',  type: 'float' },
+    { name: 'COMPLETED',      type: 'boolean' },
+  ];
+  for (const a of attrs) {
+    try {
+      await brevoRequest('POST', `/v3/contacts/attributes/normal/${a.name}`, { type: a.type });
+    } catch (_) {}
+  }
+  console.log('Brevo: atributos verificados');
+}
+
 // Corre cada día a las 9am UTC (5am hora Colombia)
 cron.schedule('0 9 * * *', () => {
   console.log('Cron: ejecutando funnel...');
   runFunnel();
 });
+
+initBrevoAttributes();
