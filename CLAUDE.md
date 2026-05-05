@@ -15,10 +15,16 @@
 ## Flujo de emails
 
 1. Usuario se registra en Netlify → POST a Railway `/subscribe`
-2. Railway guarda en `subscribers.json` y envía email de bienvenida con imágenes del Día 1
-3. Cron diario a las **9am UTC** (5am Colombia) ejecuta `runFunnel()` en `server.js`
-4. Cada suscriptor recibe el email del día correspondiente según `registeredAt`
+2. Railway guarda el contacto en **Brevo CRM** (no en JSON local) y envía email de bienvenida con imágenes del Día 1
+3. Cron diario a las **1pm UTC (8am Colombia)** ejecuta `runFunnel()` en `server.js`
+4. Cada suscriptor recibe el email del día correspondiente según `REGISTERED_AT` en Brevo
 5. Los emails incluyen imágenes desde `https://reto-calistenia.netlify.app/images/`
+6. Atributos en Brevo por contacto: `REGISTERED_AT`, `LAST_DAY_SENT`, `COMPLETED`
+
+## Endpoints útiles
+
+- `GET /subscribers` — total de suscriptores y completados
+- `GET /run-funnel` — ejecuta el funnel manualmente (para pruebas)
 
 ## Imágenes
 
@@ -60,5 +66,7 @@
 - **NO** cambiar el servidor a Gmail — solo Brevo
 - **NO** hardcodear `localhost` en `index.html` — siempre usar la URL de Railway
 - **NO** subir `.env` a GitHub
-- Para resetear subscribers: hacer un commit vacío para triggear redeploy en Railway
+- Suscriptores viven en **Brevo CRM** — NO en `subscribers.json` (ese archivo ya no se usa)
+- Para ver suscriptores: Brevo → Contactos, o abrir `/subscribers`
+- Para probar el funnel manualmente: abrir `/run-funnel`
 - Los emails diarios usan imágenes de Netlify — si Netlify cae, las imágenes no cargan
